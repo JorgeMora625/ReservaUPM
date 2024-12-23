@@ -1,0 +1,11 @@
+<p>Datosde la reserva:</p>
+<p>Usuario: {{ request.user }}</p>
+<p>año: {{ año_seleccionado }}</p>
+<p>mes: {{ mes_seleccionado }}</p>
+<p>dia: {{ dia_seleccionado }}</p>
+{% if fecha_seleccionada >= fecha_actual %}
+<p>fecha: {{ fecha_seleccionada }}</p>
+{% else %}
+<p>la fecha no debe ser anterior al dia de hoy</p>
+{% endif %}
+<p>bloque: {{ bloque_seleccionado }}</p>

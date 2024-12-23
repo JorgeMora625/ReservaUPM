@@ -1,0 +1,37 @@
+<head>
+    <title>Log-Out</title>
+    {% load static %}
+    <style>
+        body {
+            background-image: url('https://cic.etsisi.upm.es/images/fondos/Fondo-ETSISI-1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>HAS CERRADO SESIÓN</h2>
+        <hr>
+        <br>
+        <p>Pulsa <a href="{% url 'login' %}">aquí</a> para iniciar sesión.</p><br>
+        <a href="{% url 'inicio' %}">Inicio</a>
+    </div>
+</body>
+

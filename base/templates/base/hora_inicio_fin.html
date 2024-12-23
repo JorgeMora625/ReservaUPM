@@ -1,0 +1,126 @@
+{% extends 'base/estilo_comun.html' %}
+{% block content %}
+<head>
+    <style>
+        #flecha-volver {
+            color: rgb(4, 7, 170);
+            text-decoration: none;
+            text-shadow: 1px 1px #011741;
+            font-size: 20px;
+        }
+
+        form {
+            background-color: #e3e2e2;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button:active {
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-UPM">
+            <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png">
+        </div>
+        <div class="centro">
+            <h2>RESERVA LABORATORIOS EN LA UPM-ETSISI</h2>
+        </div>
+        <div class="derecha">
+            {% if request.user.is_authenticated %}
+                <p><a href="{% url 'perfil' %}"><svg style=max-width:4% xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/></svg></a> {{request.user | title}}</p>
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar Sesión</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="sidebar">
+        <a href="{% url 'principal' %}">&#x1f3e0 Home</a>
+        <hr>
+        <a href="{% url 'bloques' %}">&#x1f5d3;&#xfe0f Reservar</a>
+        <hr>
+        <a href="{% url 'mis_reservas' %}">&#x1f50e Mis Reservas</a>
+        <hr>
+        <a href="{% url 'laboratorio_form' %}">&#x2795 Laboratorio</a>
+        <hr>
+    </div>
+
+    <div class="main">
+        <h2>4. Seleccione la hora de reserva:</h2>
+        <form method="post" id="hora-reserva">
+            {% csrf_token %}
+            <label class="label" for="hora_inicio">Hora de inicio:</label>
+            <input type="time" id="hora_inicio" name="hora_inicio" required>
+            
+            <label for="hora_fin">Hora de fin:</label>
+            <input type="time" id="hora_fin" name="hora_fin" required>
+            
+            <button type="submit" class="button">Aceptar</button>
+        </form>
+        <p id="error-message" style="color: red; display: none;">La hora fin debe ser mayor que la hora inicio.</p>
+
+        <script>
+            document.getElementById("hora-reserva").addEventListener("submit", function(event) {
+                const hora_inicio = document.getElementById("hora_inicio").value;
+                const hora_fin = document.getElementById("hora_fin").value;
+                const errorMessage = document.getElementById("error-message");
+    
+                if (hora_fin <= hora_inicio) {
+                    // Cancelar el envío del formulario
+                    event.preventDefault();
+                    // Mostrar mensaje de error
+                    errorMessage.style.display = "block";
+                } else {
+                    // Ocultar el mensaje de error en caso de validación correcta
+                    errorMessage.style.display = "none";
+                }
+            });
+        </script>
+
+        <a id="flecha-volver" href="{% url 'calendario' laboratorio_seleccionado %}"> &#x1F844; Volver</a>
+    </div>
+
+{% endblock content %}
+</body>

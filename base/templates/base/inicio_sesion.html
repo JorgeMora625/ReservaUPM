@@ -1,0 +1,172 @@
+<head>
+    <title>Login Usuarios</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://cic.etsisi.upm.es/images/fondos/Fondo-ETSISI-1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            overflow: hidden;
+            width: 800px;
+            max-width: 100%;
+        }
+
+        .welcome-section, .login-section {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .welcome-section {
+            background: #f7f7f7;
+            text-align: center;
+        }
+
+        .welcome-section img {
+            width: 140px;
+            height: 110px;
+            margin-bottom: 20px;
+        }
+
+        .login-section {
+            background: #33598a;
+            color: white;
+        }
+
+        .login-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-section form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .login-section label {
+            margin: 10px 0 5px;
+        }
+
+        .login-section input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .login-section button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .login-section button:hover {
+            background: #378eea;
+        }
+
+        .login-section button:active {
+            transform: scale(0.95);
+        }
+
+        .login-section a {
+            color: white;
+            text-decoration: underline;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .login-section a:hover {
+            color: #ddd;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            text-decoration: none;
+        }
+
+        .btn {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 48%;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .error-message {
+            color: red;
+            background-color: #f8d7da;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="welcome-section">
+            <h2>BIENVENIDO</h2>
+            <div class="logo">
+                <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png" alt="UPM Logo">
+            </div>
+            <p>Reserva UPM-ETSISI</p>
+            <p>Trabajo de Fin de Grado realizado por Jorge Mora Collado y tutorizado por Borja Bordel Sánchez.</p>
+            <p>Curso 2024-2025</p>
+        </div>
+
+        <div class="login-section">
+            <h2>Iniciar Sesión</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password">
+                <div class="btn-container">
+                    <button type="submit" class="btn">Login</button>
+                    <button type="button" class="btn"><a href="{% url 'registro' %}">Registrate</a></button>
+                </div>
+                <br>
+                <button type="button"><a href="{% url 'password_reset' %}">¿Olvidaste la contraseña?</a></button>
+            </form>
+            {% if messages %}
+                {% for error in messages %}
+                    <p>⚠︎ {{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>

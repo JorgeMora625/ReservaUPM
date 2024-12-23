@@ -1,0 +1,121 @@
+<head>
+    <style>
+        body {
+            background-image: url('https://cic.etsisi.upm.es/images/fondos/Fondo-ETSISI-1280.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            background: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .button :hover{
+            background: #66a1e9;
+        }
+
+        .error p {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Registro de usuarios</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{{ form.username.label }}</label>
+                    {{ form.username }}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.first_name.label }}</label>
+                    {{ form.first_name}}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.last_name.label }}</label>
+                    {{ form.last_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="email">{{ form.email.label }}</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div style="color: red;">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                <!--{% if form.email.errors %}
+                        <div class="error">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}-->
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.password1.label }}</label>
+                    {{ form.password1 }}
+            </div>
+
+            <div class="form-group">
+                <label>{{ form.password2.label }}</label>
+                    {{ form.password2 }}
+            </div>
+            <button type="submit" class="button">Registrarse</button>
+        </form>
+        {% if form.non_field_errors %}
+            <div class="error">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <hr>
+
+        <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Iniciar Sesión</a></p>
+    </div>
+
+</body>

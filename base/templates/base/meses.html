@@ -1,0 +1,69 @@
+{% extends 'base/estilo_comun.html' %}
+{% block content%}
+<head>
+    <style>
+        .bloque {
+            background-color: #afc3ec;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .bloque:hover {
+            background-color: #84a7ed;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-UPM">
+            <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png">
+        </div>
+        <div class="centro">
+            <h2>RESERVA LABORATORIOS EN LA UPM-ETSISI</h2>
+        </div>
+        <div class="derecha">
+            {% if request.user.is_authenticated %}
+                <p><a href="{% url 'perfil' %}"><svg style=max-width:4% xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/></svg></a>  {{request.user | title}}</p>
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar Sesión</a>
+            {% endif %}
+        </div>
+    </div>
+    
+        <hr>
+    
+    <div class="sidebar">
+        <a href="{% url 'principal' %}">&#x1f3e0 Home</a>
+        <hr>
+        <a href="{% url 'bloques' %}">&#x1f5d3;&#xfe0f Reservar</a>
+        <hr>
+        <a href="{% url 'mis_reservas' %}">&#x1f50e Mis Reservas</a>
+        <hr>
+        <a href="{% url 'laboratorio_form' %}">&#x2795 Laboratorio</a>
+        <hr>
+    </div>
+    
+    <div class="main">
+        <h2>3. Selccione un mes:</h2>
+        <br>
+        <div>
+            {% for mes in meses %}
+            <a href="{% url 'principal' %}" class="bloque">
+                {{ mes.mes }}
+            </a>
+            {% endfor %}
+        </div>
+        <a href="{% url 'bloques-lab' bloque %}">Volver</a> 
+    </div>
+
+    {% endblock content %}
+</body>

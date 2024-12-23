@@ -1,0 +1,158 @@
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            background-color: #124bc7;
+            padding: 20px 0;
+            height: 100vh;
+            position: fixed;
+            z-index: 1; /* Fijado */
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-item {
+            margin-bottom: 10px;
+        }
+
+        .menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-item a:hover {
+            background-color: #628deb;
+        }
+
+        .menu-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 10px;
+        }
+
+        .menu-text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 23px;
+        }
+
+
+        .main {
+            margin-left: 260px; /* Igual a la anchura de la barra lateral */
+            padding: 16px;
+        }
+
+        .logo-UPM {
+            display: flex;
+            justify-content: left;
+        }
+
+        .logo-UPM img {
+            max-width: 32%;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* Tres columnas de igual tamaño */
+            align-items: center;
+            background-color: #afc3ec;
+            justify-content: space-between;        
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin: 20px;
+            margin-left: 260px;
+        }
+
+        .izquierda {
+            text-align: left;
+        }
+
+        .centro {
+            text-align: center;
+        }
+
+        .derecha {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-UPM">
+            <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png">
+        </div>
+        <div class="centro">
+            <h2>RESERVA LABORATORIOS EN LA UPM-ETSISI</h2>
+        </div>
+        <div class="derecha">
+            {% if request.user.is_authenticated %}
+                <p>{{request.user | title}}</p>
+                <a href="{% url 'logout' %}">Cerrar sesión</a>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar Sesión</a>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="menu-item">
+                <a href="{% url 'inicio' %}">
+                    <img src="https://cdn-icons-png.freepik.com/256/10976/10976272.png?ga=GA1.2.551158908.1722271876&semt=ais_hybrid" alt="Home Icon" class="menu-icon">
+                    <span class="menu-text">Home</span>
+                </a>
+            </li>
+            <hr>
+            <li class="menu-item">
+                <a href="{% url 'mis_reservas' %}">
+                    <img src="https://cdn-icons-png.freepik.com/256/10977/10977446.png?ga=GA1.2.551158908.1722271876" alt="Reservar Icon" class="menu-icon">
+                    <span class="menu-text">Mis Reservas</span>
+                </a>
+            </li>
+            <hr>
+            <li class="menu-item">
+                <a href="{% url 'laboratorio_form' %}">
+                    <img src="https://cdn-icons-png.freepik.com/256/10977/10977423.png?ga=GA1.2.551158908.1722271876" alt="Test Simulation Icon" class="menu-icon">
+                    <span class="menu-text">Nuevo Laboratorio</span>
+                </a>
+            </li>
+            <hr>
+            <li class="menu-item">
+                <a href="{% url 'principal' %}">
+                    <img src="https://cdn-icons-png.freepik.com/256/10977/10977406.png?ga=GA1.2.551158908.1722271876" alt="Learn English Icon" class="menu-icon">
+                    <span class="menu-text">Reservar</span>
+                </a>
+            </li>
+            <hr>
+        </ul>
+    </div>
+
+    <div class="main">
+        <h2>TEXTO PRINCIPAL</h2>
+        <p>Texto secundario, aun no se que poner asi que dejo abjo el ejemplo de chatGPT.</p>
+        <p>Scroll down the page to see the effect.</p>
+        <p>Para cambiar tu contraseña pulsa <a href="{% url 'password_change' %}">aquí.</a></p>
+    </div>
+
+</body>

@@ -1,0 +1,75 @@
+<head>
+    <title>RESERVA-UPM</title>
+    {% load static %}
+    <style>
+        body {
+            background-image: url('//live.staticflickr.com/65535/49914650623_14d1bdbf84_k.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        .button {
+            background: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover{
+            background: #0069d9;
+        }
+
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        a,
+        p {
+            color: #ffffff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://www.upm.es/sfs/Rectorado/Gabinete%20del%20Rector/Logos/UPM/Logotipo/LOGOTIPO%20color%20PNG.png">
+        </div>
+        <h2>Reserva UPM </h2>
+        <button type="submit" class="button"><a href="{% url 'login' %}">Iniciar Sesión</a></button>
+    </div>
+</body>
+
+
+
+
+
+
+
+
+

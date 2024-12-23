@@ -1,0 +1,104 @@
+<head>
+    <meta charset="UTF-8">
+    <title>PRINCIPAL</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidebar {
+            height: 100%; /* 100% Full-height */
+            width: 250px; /* Anchura */
+            position: fixed; /* Fijado */
+            z-index: 1; /* Fijado */
+            top: 0;
+            left: 0;
+            background-color: #124bc7; /* Color de fondo */
+            overflow-x: hidden; /* Desactivar desplazamiento horizontal */
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: rgb(255, 255, 255);
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #628deb;
+        }
+
+        .main {
+            margin-left: 260px; /* Igual a la anchura de la barra lateral */
+            padding: 16px;
+        }
+
+        .container {
+            background-color: #afc3ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin: 20px;
+            margin-left: 260px;
+        }
+
+        .logo-UPM {
+            display: flex;
+        }
+
+        .logo-UPM img {
+            max-width: 12%;
+        }
+
+        .texto-izqda {
+            align-items: center;
+            padding: 10px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="bloque">Bloque:</label>
+                {{ form.bloque }}
+            </div>
+            <div class="form-group">
+                <label for="laboratorio">Laboratorio:</label>
+                {{ form.laboratorio }}
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#id_bloque').change(function() {
+                    var bloque_id = $(this).val();
+                    $.ajax({
+                        url: "{% url 'bloques_lab' %}",
+                        data: {
+                            'bloque': bloque_id
+                        },
+                        success: function(data) {
+                            var $laboratorio = $('#id_laboratorio');
+                            $laboratorio.empty();
+                            $.each(data, function(key, value) {
+                                $laboratorio.append('<option value="' + value.id + '">' + value.cod_lab + '</option>');
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+</body>

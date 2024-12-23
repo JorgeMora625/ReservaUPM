@@ -1,0 +1,78 @@
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <title>Reserva UPM-ETSISI</title>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px; 
+            position: fixed; /* Fijado */
+            z-index: 1; /* Fijado */
+            top: 0;
+            left: 0;
+            background-color: #124bc7; 
+            overflow-x: hidden; /* Desactivar desplazamiento horizontal */
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: rgb(255, 255, 255);
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #628deb;
+        }
+
+        .main {
+            margin-left: 260px; /* Igual a la anchura de la barra lateral */
+            padding: 16px;
+        }
+
+        .logo-UPM {
+            display: flex;
+            justify-content: left;
+        }
+
+        .logo-UPM img {
+            max-width: 32%;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* Tres columnas de igual tamaño */
+            align-items: center;
+            background-color: #afc3ec;
+            justify-content: space-between;        
+            padding: 20px;
+            border: 1px solid #ddd;
+            margin: 20px;
+            margin-left: 260px;
+        }
+
+        .izquierda {
+            text-align: left;
+        }
+
+        .centro {
+            text-align: center;
+        }
+
+        .derecha {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+
+    {% endblock content%}
+</body>
