@@ -45,10 +45,10 @@ class RegistroForm(UserCreationForm):
          model = User
          fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
-    def clean_correo(self):
+    def clean_email(self):
         email = self.cleaned_data['email']
         if not 'upm.es' in email:
-            raise ValidationError('El correo debe pertencer a la UPM')
+            raise ValidationError('El correo debe pertenecer a la UPM')
         return email
 
     def save(self, commit=True):
@@ -140,35 +140,3 @@ class ReservaForm(forms.Form):
         if not Laboratorio.objects.filter(cod_lab=laboratorio).exists():
             raise ValidationError('El laboratorio no existe.')
         return laboratorio
-
-    
-
-# NO SE USA
-'''class EmailAuthenticationForm(AuthenticationForm):
-    username = forms.EmailField(label="Email", max_length=254)
-
-    def clean(self):
-        email = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-
-        if email and password:
-            self.user_cache = authenticate(username=email, password=password)
-            if self.user_cache is None:
-                raise forms.ValidationError("Email o contraseña incorrectos.")
-            else:
-                self.confirm_login_allowed(self.user_cache)
-
-        return self.cleaned_data'''
-
-# NO SE USA
-'''class CustomLoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Correo de la UPM',
-        'id': 'username'
-    }))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Contraseña',
-        'id': 'password'
-    }))'''

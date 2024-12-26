@@ -37,22 +37,6 @@ class Laboratorio(models.Model):
     def incrementar(self):
         self.capacidad += 1
         self.save()
-    
-    # De moemnto no se usa
-    def get_id(self):
-        return self.id
-
-    #Por consola o signal
-    '''@classmethod
-    def rellenar_capacidad_total(cls):
-        if cls.bloque == 'CIC':
-            cls.capacidad_total = 50
-        elif cls.bloque == 1:
-            cls.capacidad_total = 50
-        elif cls.bloque == 3:
-            cls.capacidad_total = 60
-        elif cls.bloque == 4:
-            cls.capacidad_total = 55'''
 
     def restablecer_capacidad(self):
         self.capacidad = self.capacidad_total
@@ -62,8 +46,8 @@ class Laboratorio(models.Model):
 class Reserva(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_reserva = models.DateField()
-    hora_inicio = models.TimeField(default=time(17, 0))
-    hora_fin = models.TimeField(default=time(17, 0))
+    hora_inicio = models.TimeField()
+    hora_fin = models.TimeField()
     laboratorio = models.ForeignKey(Laboratorio, on_delete=models.CASCADE, default=None)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
