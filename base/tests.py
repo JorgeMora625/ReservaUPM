@@ -2,8 +2,6 @@ from django.test import TestCase
 from .models import *
 
 # Models tests--------------------------------------------------------------------------------------------------------------------------
-
-
 class AlumnoTestCase(TestCase):
     def setUp(self):
         User.objects.create(username="prueba", first_name="prueba", last_name="de alumno", email="prueba@alumnos.upm.es", password="prueba")
