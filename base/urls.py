@@ -12,10 +12,9 @@ urlpatterns = [
         path('principal/', principal, name='principal'),
         path('admin-laboratorios/', adminLaboratorios, name='laboratorio_form'),
         path('popup/', popup_view, name='popup_view'),
-        # Funcionan si el usuario esta autenticado (ha iniciado sesion)
+        # Funcionan si el usuario ha iniciado sesion
         path('password-change/', auth_views.PasswordChangeView.as_view(template_name='base/password_change_form.html'), name='password_change'),
         path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='base/password_change_done.html'), name='password_change_done'),
-        #path('menu-lateral/', menuLateral, name='menu_lateral'),
         path('bloques/', mostrarBloques, name='bloques'),
         path('bloques/Bloque <str:bloque_seleccionado>/', mostrarLaboratorios, name='bloques-lab'),
         path('calendario/<str:cod_lab>/', calendario, name='calendario'),

@@ -86,7 +86,8 @@ class ReservaTestCase(TestCase):
 #VIEWS TESTS----------------------------------------------------------------------------------------------------------------------------
 class ViewsTestCase(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', first_name='test', last_name='test', email='test@upm.es', password='testpassword')
+        self.user = User.objects.create_user(username='testuser', first_name='test', last_name='test', email='test@upm.es', 
+            password='testpassword')
         self.user.save()
 
     def test_inicio(self):
@@ -130,8 +131,75 @@ class ViewsTestCase(TestCase):
     def test_modificar_laboratorio(self):
         self.client.login(username='testuser', password='testpassword')
         lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
-        response = self.client.get(reverse('modificar_laboratorio', args=[lab.id]))
+        response = self.client.get(reverse('editar_laboratorio', args=[lab.id]))
         self.assertEqual(response.status_code, 200)
+
+    def test_ver_laboratorio(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        response = self.client.get(reverse('ver_laboratorio', args=[lab.id]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_Mis_Reservas(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('mis_reservas'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_Mis_Reservas(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('mis_reservas'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_mostrarBloques(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('bloques'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_mostrarLaboratorios(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        response = self.client.get(reverse('bloques-lab', args=[lab.bloque]))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_calendario(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        response = self.client.get(reverse('calendario', args=[lab.cod_lab]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_hora_reserva(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('hora_reserva', args=[29, 12, 2024]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_eliminar_reserva(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        reserva = Reserva.objects.create(usuario=self.user, fecha_reserva='2025-01-01', hora_inicio='08:00', hora_fin='10:00', laboratorio=lab, fecha_creacion='01/01/2024')
+        response = self.client.get(reverse('eliminar_reserva', args=[reserva.id]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_editar_reserva(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        reserva = Reserva.objects.create(usuario=self.user, fecha_reserva='2025-01-01', hora_inicio='08:00', hora_fin='10:00', laboratorio=lab, fecha_creacion='01/01/2024')
+        response = self.client.get(reverse('editar_reserva', args=[reserva.id]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_ver_reserva(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        reserva = Reserva.objects.create(usuario=self.user, fecha_reserva='2025-01-01', hora_inicio='08:00', hora_fin='10:00', laboratorio=lab, fecha_creacion='01/01/2024')
+        response = self.client.get(reverse('ver_reserva', args=[reserva.id]))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_principal(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('principal'))
+        self.assertEqual(response.status_code, 200)
+
+    
+
 
 
     
