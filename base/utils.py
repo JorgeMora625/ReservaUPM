@@ -8,7 +8,7 @@ def enviar_correo(destinatario, asunto, mensaje):
         send_mail(
             asunto,  # Asunto del correo
             mensaje,  # Cuerpo del correo
-            settings.DEFAULT_FROM_EMAIL,  # Remitente
+            settings.EMAIL_HOST_USER,  # Remitente
             [destinatario],  # Lista de destinatarios
             fail_silently=False,
         )
