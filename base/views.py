@@ -115,6 +115,7 @@ def eliminar_laboratorio(request, id_laboratorio):
 
 
 
+@login_required
 def modificar_laboratorio(request, pk):
     laboratorio = get_object_or_404(Laboratorio, pk=pk)
     initial_data = {
@@ -212,6 +213,7 @@ def calendario(request, cod_lab):
 
 
 
+@login_required
 def hora_reserva(request, day, month, year):
     request.session['año_seleccionado'] = year
     request.session['mes_seleccionado'] = month
@@ -354,6 +356,7 @@ def ver_reserva(request, id_reserva):
     return render(request, 'base/ver_reserva.html', {'reserva': reserva})
 
 #-------------------------------------------------------OTROS---------------------------------------------------------------------------
+@login_required
 def principal(request):
     hoy = datetime.date.today()
     hora_actual = datetime.datetime.now().time()
@@ -373,8 +376,8 @@ def inicio(request):
 
 
 #Prueba (no se usa)
-def menuLateral(request):
-    return render(request, 'base/menu_lateral.html')
+'''def menuLateral(request):
+    return render(request, 'base/menu_lateral.html')'''
 
 
 #Prueba (no se usa)

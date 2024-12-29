@@ -1,12 +1,13 @@
 from django.test import TestCase
 from .models import *
 from .forms import *
+from .views import *
+from django.urls import reverse
 
 # MODELS TEST--------------------------------------------------------------------------------------------------------------------------
 class AlumnoTestCase(TestCase):
     def setUp(self):
-        User.objects.create(username="prueba", first_name="prueba", last_name="de alumno", email="prueba@alumnos.upm.es",
-             password="prueba")
+        User.objects.create(username="prueba", first_name="prueba", last_name="de alumno", email="prueba@alumnos.upm.es", password="prueba")
 
     def test_crea_alumno(self):
         usuario = User.objects.get(last_name="de alumno")
@@ -83,3 +84,54 @@ class ReservaTestCase(TestCase):
 
 
 #VIEWS TESTS----------------------------------------------------------------------------------------------------------------------------
+class ViewsTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', first_name='test', last_name='test', email='test@upm.es', password='testpassword')
+        self.user.save()
+
+    def test_inicio(self):
+        response = self.client.get(reverse('inicio'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_MyLogin(self):
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_logout(self):
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_registroUsuario(self):
+        response = self.client.get(reverse('registro'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_ver_perfil(self):
+        # Autenticar al usuario
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('perfil'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_adminLaboratorios(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('laboratorio_form'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_obtenerLaboratorios(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('laboratorios'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_eliminar_laboratorio(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        response = self.client.get(reverse('eliminar_laboratorio', args=[lab.id]))
+        self.assertEqual(response.status_code, 200)
+
+    def test_modificar_laboratorio(self):
+        self.client.login(username='testuser', password='testpassword')
+        lab = Laboratorio.objects.create(cod_lab=1111, bloque=1, capacidad=1, capacidad_total=1)
+        response = self.client.get(reverse('modificar_laboratorio', args=[lab.id]))
+        self.assertEqual(response.status_code, 200)
+
+
+    
