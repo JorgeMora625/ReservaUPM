@@ -374,12 +374,3 @@ def principal(request):
 def inicio(request):
     return render(request, 'base/inicio.html')
 
-
-#Prueba (no se usa)
-'''def menuLateral(request):
-    return render(request, 'base/menu_lateral.html')'''
-
-
-#Prueba (no se usa)
-def popup_view(request):
-    return render(request, 'base/popup.html')
