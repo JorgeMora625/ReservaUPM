@@ -122,7 +122,7 @@ USE_TZ = True
 # LOGIN
 LOGIN_URL = 'login' # Nombre de la view que se usa para el login
 
-LOGIN_REDIRECT_URL = 'principal'
+LOGIN_REDIRECT_URL = 'principal' # Vista a la que te redirije cuando inicias sesion
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

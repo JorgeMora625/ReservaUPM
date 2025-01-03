@@ -60,6 +60,7 @@ def registroUsuario(request):
             return redirect('principal')  
     else:
         form = RegistroForm()
+
     return render(request, 'base/registro-user.html', {'form': form})
 
 
@@ -91,6 +92,9 @@ class obtener_laboratorios(LoginRequiredMixin, ListView):
     context_object_name = 'laboratorios'
     template_name = 'base/laboratorios.html'
 
+    '''
+    Funcion para configurar la barra de busqueda
+    '''
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         valor_buscado = self.request.GET.get('barra_busqueda') or ''
@@ -133,6 +137,7 @@ def modificar_laboratorio(request, pk):
             print(form.errors)
     else:
         form = NuevoLaboratorio(instance=laboratorio)
+
     return render(request, 'base/modificar_laboratorio.html', {'form': form, 'laboratorio': laboratorio})
 
 
@@ -166,6 +171,7 @@ def mostrarBloques(request):
     for obj in Laboratorio.objects.all():
         if obj.bloque not in bloques_unicos:
             bloques_unicos.add(obj.bloque)
+
     return render(request, 'base/bloques.html', {'bloques': bloques_unicos})
 
 
@@ -209,6 +215,7 @@ def calendario(request, cod_lab):
     
     bloque = request.session.get('bloque_seleccionado')
     fecha_hoy = datetime.date.today()
+
     return render(request, 'base/calendario.html', {'months': months, 'bloque': bloque, 'dia_actual': fecha_hoy})
 
 
@@ -230,6 +237,7 @@ def hora_reserva(request, day, month, year):
         return redirect('detalles_Reserva')
     
     laboratorio_seleccionado = request.session.get('laboratorio_seleccionado')
+    
     return render(request, 'base/hora_inicio_fin.html', {'laboratorio_seleccionado': laboratorio_seleccionado})
 
 
@@ -244,6 +252,7 @@ def detalles_Reserva(request):
     año = request.session.get('año_seleccionado')
     date_selected = datetime.date(año, mes, dia)
     fecha_actual = datetime.date.today()
+    
     return render(request, 'base/detalles_Reserva.html', {'bloque_seleccionado': bloque_seleccionado, 'fecha_actual': fecha_actual, 
         'laboratorio_seleccionado': laboratorio_seleccionado, 'date_selected': date_selected, 'hora_inicio': hora_inicio, 'hora_fin': hora_fin})
 
@@ -360,12 +369,14 @@ def ver_reserva(request, id_reserva):
 def principal(request):
     hoy = datetime.date.today()
     hora_actual = datetime.datetime.now().time()
+
     reservas_mes = Reserva.objects.filter(
         usuario_id=request.user.id, 
         fecha_reserva__year=hoy.year, 
         fecha_reserva__month=hoy.month, 
         fecha_reserva__gte=hoy
     ).order_by('fecha_reserva')
+
     dia_hoy = hoy.day
     return render(request, 'base/principal.html', {'reservas_mes': reservas_mes, 'hora_actual': hora_actual, 'dia_hoy': dia_hoy})
 
