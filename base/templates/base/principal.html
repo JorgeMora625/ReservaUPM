@@ -109,7 +109,7 @@
                     {% if reserva.fecha_reserva.day == dia_hoy and hora_actual > reserva.hora_fin %} 
                         <!--No mostramos nada-->
                     {% else %}
-                        <li><p>{{ reserva.id}} {{ reserva.fecha_reserva }} {{ reserva.hora_inicio }}-{{ reserva.hora_fin }} -- Laboratorio: {{ reserva.laboratorio.cod_lab }}</p></li>
+                        <li><p>{{ reserva.fecha_reserva }} de {{ reserva.hora_inicio }} a {{ reserva.hora_fin }} -- Laboratorio: {{ reserva.laboratorio.cod_lab }}</p></li>
                     {% endif %}        
                 {% empty %} 
                     <p>No tienes ninguna reserva para este mes. Pulsa aqui para <a href="{% url 'bloques' %}">reservar.</a></p>
