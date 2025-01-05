@@ -2,7 +2,27 @@
 {% block content %}
 <head>
     <style>
-        .button {
+        .button2 {
+            background-color: #f11a1a;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 0.4em;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: small;
+            display: inline-block;
+        }
+
+        .button2:hover {
+            background-color: #930707;
+        }
+
+        .button2:active {
+            transform: scale(0.95);
+        }
+
+        .button1 {
             background-color: #007bff;
             color: white;
             padding: 10px 15px;
@@ -14,27 +34,17 @@
             display: inline-block;
         }
 
-        .button:hover {
+        .button1:hover {
             background-color: #0056b3;
         }
 
-        .button:active {
+        .button1:active {
             transform: scale(0.95);
         }
 
-        .detalles {
-            background-color: #e3e2e2;
-            padding: 20px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        .acciones {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
+        .button1 a {
+            text-decoration: none;
+            color: white;
         }
 
         .eliminar_usuario {
@@ -54,9 +64,12 @@
             transform: scale(0.95);
         }
 
-        .eliminar_usuario a {
-            text-decoration: none;
-            color: white;
+        .eliminar {
+            background-color: #e3e2e2;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
@@ -93,20 +106,17 @@
     </div>
 
     <div class="main">
-        <h3>Datos del usuario:</h3>
-        <div class="detalles">
-            <svg style="max-width: 3%;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M528 160l0 256c0 8.8-7.2 16-16 16l-192 0c0-44.2-35.8-80-80-80l-64 0c-44.2 0-80 35.8-80 80l-32 0c-8.8 0-16-7.2-16-16l0-256 480 0zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM272 256a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm104-48c-13.3 0-24 10.7-24 24s10.7 24 24 24l80 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-80 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l80 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-80 0z"/></svg>
-            <p><strong>ID de usuario:</strong> {{ usr.id }}</p>
-            <p><strong>Nombre:</strong> {{ usr.first_name }}</p>
-            <p><strong>Apellidos:</strong> {{ usr.last_name }}</p>
-            <p><strong>Correo:</strong> {{ usr.email }}</p>
-            <p><strong>Rol:</strong> {{ rol }}</p>
-            <p><strong>Fecha en la que te uniste:</strong> {{ usr.date_joined }}</p>
-            <div class="acciones">
-                <a href="{% url 'password_change' %}">Cambiar contraseña</a>
-                <button class="eliminar_usuario"><a href="{% url 'eliminar_usuario' %}">Eliminar cuenta</a></button>
-            </div>
-            
+        <div class="eliminar">
+            <form method="POST">
+                {% csrf_token %}
+                <p>Se eliminará tu cuenta definitivamente así como todas las reservas realizadas y no habrá posibilidad de recuperarla.</p>
+                <p>¿Seguro que quieres continuar?</p>
+                <div class="botones">
+                    <input class="button2" type="submit" value="Eliminar">
+                    <button class="button1"><a href="{% url 'perfil' %}">Volver</a></button>
+                </div>
+                
+            </form>
         </div>
     </div>
 

@@ -73,6 +73,16 @@ def ver_perfil(request):
         rol = 'Profesor'
     return render(request, 'base/ver_perfil.html', {'usr': usr_actual, 'rol': rol})
 
+
+
+def eliminar_usuario(request):
+    if request.method == 'POST':
+        usuario = request.user
+        usuario.delete()
+        return redirect('login')
+
+    return render(request, 'base/eliminar_usuario.html')
+
 #-------------------------------------------------------LABORATORIOS----------------------------------------------------------------------
 @profesor_required
 def adminLaboratorios(request):
@@ -252,7 +262,7 @@ def detalles_Reserva(request):
     año = request.session.get('año_seleccionado')
     date_selected = datetime.date(año, mes, dia)
     fecha_actual = datetime.date.today()
-    
+
     return render(request, 'base/detalles_Reserva.html', {'bloque_seleccionado': bloque_seleccionado, 'fecha_actual': fecha_actual, 
         'laboratorio_seleccionado': laboratorio_seleccionado, 'date_selected': date_selected, 'hora_inicio': hora_inicio, 'hora_fin': hora_fin})
 

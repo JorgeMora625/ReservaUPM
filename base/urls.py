@@ -28,6 +28,7 @@ urlpatterns = [
         path('detalles-laboratorio/<int:id_laboratorio>/', ver_laboratorio, name='ver_laboratorio'),
         path('editar-laboratorio/<int:pk>/', modificar_laboratorio, name='editar_laboratorio'),
         path('perfil/', ver_perfil, name='perfil'),
+        path('eliminar-usuario', eliminar_usuario, name='eliminar_usuario'),
         #Olvidé mi contraseña
         path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
         path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
