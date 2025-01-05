@@ -91,7 +91,7 @@
         <p style="font-size: large;"><strong>Mis Reservas: </strong></p>
         <div class="reserva-list">
             {% for reserva in reservas %}
-                {% if reserva.fecha_reserva >= hoy and reserva.hora_fin > hora_actual %}
+                {% if reserva.fecha_reserva >= hoy %}
                     <div class="reserva">
                         <div class="info">
                             <p>Laboratorio: {{ reserva.laboratorio.cod_lab }}</p>
