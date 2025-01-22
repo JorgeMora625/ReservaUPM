@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-$1is2gu59qa7yyhwd2z(v+5+kn$2upu&pe(=-24m&+)*ooe7u8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []#['.elasticbeanstalk.com']
 
 
 # Application definition
@@ -143,8 +143,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'moviljorgem@gmail.com' #env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = 'wxwx ghpv xywi ulva' #env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'reservaupmetsisi@gmail.com'
+EMAIL_HOST_PASSWORD = 'dbow myts ryro zwqr'
 #DEFAULT_FROM_EMAIL = 'no-reply@gmail.com'
 
 
